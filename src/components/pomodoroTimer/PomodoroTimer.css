@@ -1,0 +1,52 @@
+.timer-container {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 310px;
+	height: 310px;
+	border-radius: 50%;
+	background: linear-gradient(315deg, #2e325a 0%, #0e112a 100%);
+	box-shadow: -50px -10px 100px #272c5a, 50px 50px 100px #121530;
+	content: #161932;
+	transition: 0.8s;
+}
+
+.timer-container:hover {
+	box-shadow: 50px 10px 100px #272c5a, -50px -50px 100px #121530;
+	transform: translateY(5px);
+}
+
+.timer {
+	width: 266px;
+	height: 266px;
+	background-color: #161932;
+	border-radius: 50%;
+	padding: 10px;
+	position: relative;
+}
+
+.pauseRestart {
+	display: flex;
+	position: absolute;
+	justify-content: center;
+	color: #d7e0ff;
+	font-size: 16px;
+	letter-spacing: 15px;
+	width: 100%;
+	margin: 0 auto;
+	bottom: 70px;
+}
+
+.cycle-text {
+	position: absolute;
+	top: 45px;
+	left: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 17px;
+	letter-spacing: 2px;
+}

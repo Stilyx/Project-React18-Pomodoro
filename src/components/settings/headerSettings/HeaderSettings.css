@@ -1,0 +1,17 @@
+.header-modal {
+	display: flex;
+	width: 100%;
+	padding: 31px 40px;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #e3e1e1;
+	margin-bottom: 28px;
+}
+
+.header-modal button {
+	background-color: transparent;
+	border: none;
+	font-size: 28px;
+	cursor: pointer;
+}

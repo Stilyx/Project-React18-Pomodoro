@@ -1,38 +1,72 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&family=League+Spartan:wght@700&family=Roboto+Slab&family=Space+Mono:wght@700&display=swap');
+
+.theme-red {
+	--input-radio-background: #f87070;
+	--path-color: #f87070;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.theme-blue {
+	--input-radio-background: #70f3f8;
+	--path-color: #70f3f8;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.theme-purple {
+	--input-radio-background: #d881f8;
+	--path-color: #d881f8;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.desktop {
+	--text-size: 50px;
 }
 
-.App-link {
-  color: #61dafb;
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+	background-color: #1e213f;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	align-items: center;
+}
+
+.title {
+	color: white;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 32px;
+}
+
+.gear-button {
+	position: absolute;
+	background-color: transparent;
+	border: none;
+	bottom: 10px;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+
+.gear-button:hover {
+	transform: rotate(80deg);
+	transition: 5s;
+	width: 30px;
+	height: 30px;
+	object-fit: cover;
+}
+
+.hidden {
+	display: none;
+}
+
+@media (max-width: 600px) {
+	body {
+		-webkit-tap-highlight-color: transparent;
+	}
 }

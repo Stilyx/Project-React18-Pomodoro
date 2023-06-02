@@ -1,0 +1,45 @@
+.header-radios {
+	display: flex;
+	flex-direction: row;
+	width: 420px;
+	height: 60px;
+	padding: 7px;
+	align-items: center;
+	justify-content: space-evenly;
+	background-color: #161932;
+	border-radius: 31px;
+	margin-bottom: 30px;
+}
+
+.header-radios input[type='radio'] {
+	display: none;
+}
+
+.header-radios label {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	color: #d7e0ff;
+	opacity: 0.4;
+	padding: 10px;
+	border-radius: 30.5px;
+	cursor: pointer;
+}
+.header-radios label:hover {
+	color: white;
+}
+
+.header-radios input[type='radio']:checked + label {
+	background-color: var(--input-radio-background);
+	color: #1e213f;
+	opacity: 1;
+}
+
+@media (max-width: 600px) {
+	.header-radios {
+		width: 350px;
+	}
+}

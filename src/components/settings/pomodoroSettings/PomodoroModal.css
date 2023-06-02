@@ -1,0 +1,40 @@
+.pomodoro-modal {
+	position: relative;
+	flex-direction: column;
+	display: flex;
+	width: 540px;
+	height: 464px;
+	background-color: white;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+}
+
+.apply-settings {
+	width: 140px;
+	height: 53px;
+	background-color: var(--path-color);
+	color: white;
+	border: none;
+	border-radius: 26px;
+	display: flex;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -24px;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+.apply-settings:hover {
+	opacity: 0.75;
+}
+
+@media (max-width: 600px) {
+	.pomodoro-modal {
+		width: 327px;
+		height: auto;
+	}
+}
