@@ -11,6 +11,10 @@
 	margin-bottom: 30px;
 }
 
+.header-radios.automaticRadio label {
+	cursor: not-allowed;
+}
+
 .header-radios input[type='radio'] {
 	display: none;
 }

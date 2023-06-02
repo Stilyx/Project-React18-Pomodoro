@@ -44,7 +44,7 @@ function ChangePomodoro(obj: TChangePomorodo): JSX.Element {
 	return (
 		<form
 			action='#'
-			className='header-radios'
+			className={obj.isAutomatic ? 'header-radios automaticRadio' : 'header-radios'}
 			onChange={e => (obj.isAutomatic ? '' : changeRadios(e))}
 		>
 			<input type='radio' name='pomodorosTypes' id='pomodoro' checked={obj.pomodoroRadio} />
