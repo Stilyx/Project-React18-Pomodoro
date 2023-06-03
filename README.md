@@ -55,7 +55,7 @@
 
 ```
 # Para clonar
-$ git clone https://github.com/Stilyx/Project-React18-Calculator-App.git
+$ git clone https://github.com/Stilyx/Project-React18-Pomodoro.git
 
 # Para instalar todas as dependencias do projeto
 $ yarn install
