@@ -1,11 +1,8 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 
 // Styles
 import './App.css';
-
-// Hooks
-import UseInterval from './hooks/SetInterval';
 
 // Components
 import ChangePomodoro from './components/changePomodoro/ChangePomodoro';
@@ -15,11 +12,8 @@ import AboutPomodoro from './components/aboutPomodoro/AboutPomodoro';
 import PomodoroModal from './components/settings/pomodoroSettings/PomodoroModal';
 import Modal from './components/modal/Modal';
 
+// Assets
 const gear = require('./assets/gear.png');
-const playSong = require('./sounds/bell-start.mp3');
-const audioStartWorking = new Audio(playSong);
-const finishSong = require('./sounds/bell-finish.mp3');
-const audioFinishWork = new Audio(finishSong);
 
 function App() {
 	const [working, setWorking] = useState<boolean>(false);
@@ -34,27 +28,8 @@ function App() {
 	const [shortRadio, setShortRadio] = useState<boolean>(false);
 	const [longRadio, setLongRadio] = useState<boolean>(false);
 	const [isAutomatic, setIsAutomatic] = useState<boolean>(false);
-	const [cyclesToLongRest, setCyclesToLongRest] = useState<boolean[]>(new Array(4).fill(true));
 	const [completedCycles, setCompletedCycles] = useState<number>(0);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-	UseInterval(
-		() => {
-			setMainTime(mainTime - 1);
-		},
-		timeCounting ? 1000 : null
-	);
-
-	const stopOrWork = useCallback((): void => {
-		setTimeCounting(true);
-		setWorking(true);
-		setMainTime(defaultPomodoro);
-		setMaxValue(defaultPomodoro);
-		setPomodoroRadio(true);
-		setLongRadio(false);
-		setShortRadio(false);
-		setRest(false);
-	}, [defaultPomodoro]);
 
 	const restTime = useCallback(
 		(long: boolean): void => {
@@ -78,61 +53,6 @@ function App() {
 		[defaultLongRestTime, defaultRestTime, isAutomatic]
 	);
 
-	const automaticRadiosChange = useCallback((): void => {
-		if (pomodoroRadio) {
-			setMainTime(defaultPomodoro);
-			setMaxValue(defaultPomodoro);
-		}
-		if (shortRadio) {
-			setMainTime(defaultRestTime);
-			setMaxValue(defaultRestTime);
-		}
-		if (longRadio) {
-			setMainTime(defaultLongRestTime);
-			setMaxValue(defaultLongRestTime);
-		}
-	}, [defaultLongRestTime, defaultRestTime, defaultPomodoro, pomodoroRadio, shortRadio, longRadio]);
-
-	useEffect(() => {
-		if (mainTime > 0) return;
-		audioFinishWork.play();
-
-		if (!isAutomatic) {
-			setTimeCounting(false);
-			automaticRadiosChange();
-			return;
-		}
-
-		if (working && cyclesToLongRest.length > 0) {
-			restTime(false);
-			cyclesToLongRest.pop();
-			setCompletedCycles(completedCycles + 1);
-		}
-
-		if (working && cyclesToLongRest.length <= 0) {
-			restTime(true);
-			setCyclesToLongRest(new Array(4).fill(true));
-		}
-
-		if (rest) stopOrWork();
-	}, [
-		mainTime,
-		rest,
-		restTime,
-		stopOrWork,
-		working,
-		cyclesToLongRest,
-		isAutomatic,
-		automaticRadiosChange,
-		completedCycles
-	]);
-
-	const isWorking = () => {
-		setTimeCounting(!timeCounting);
-		audioStartWorking.play();
-		if (!working && !rest) stopOrWork();
-	};
-
 	return (
 		<div className='container'>
 			<h1 className='title'>Pomodoro</h1>
@@ -149,6 +69,12 @@ function App() {
 				setRest={setRest}
 				setPomodoroRadio={e => setPomodoroRadio(e)}
 				setCompletedCycles={setCompletedCycles}
+				defaultRestTime={defaultRestTime}
+				defaultLongRestTime={defaultLongRestTime}
+				pomodoroRadio={pomodoroRadio}
+				shortRadio={shortRadio}
+				longRadio={longRadio}
+				mainTime={mainTime}
 			/>
 			<ChangePomodoro
 				pomodoroRadio={pomodoroRadio}
@@ -166,15 +92,28 @@ function App() {
 				defaultRestTime={defaultRestTime}
 				defaultLongRestTime={defaultLongRestTime}
 				isAutomatic={isAutomatic}
+				mainTime={mainTime}
 			/>
 
 			<PomodoroTimer
 				isAutomatic={isAutomatic}
-				isWorking={() => isWorking()}
 				mainTime={mainTime}
 				maxValue={maxValue}
 				timeCounting={timeCounting}
 				completedCycles={completedCycles}
+				setMainTime={e => setMainTime(e)}
+				defaultPomodoro={defaultPomodoro}
+				rest={rest}
+				restTime={e => restTime(e)}
+				setTimeCounting={e => setTimeCounting(e)}
+				setCompletedCycles={e => setCompletedCycles(e)}
+				setMaxValue={e => setMaxValue(e)}
+				setLongRadio={e => setLongRadio(e)}
+				setPomodoroRadio={e => setPomodoroRadio(e)}
+				setShortRadio={e => setShortRadio(e)}
+				setRest={e => setRest(e)}
+				setWorking={e => setWorking(e)}
+				working={working}
 			/>
 
 			<Modal
