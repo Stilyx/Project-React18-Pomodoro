@@ -5,6 +5,7 @@ import {IDefaultTimer} from '../interfaces/IDefaultTimer';
 import {IRestTime} from '../interfaces/IRestTime';
 import {ISetTimer} from '../interfaces/ISetTimer';
 import {ISetTimerRadio} from '../interfaces/ISetTimerRadio';
+import {ITimer} from '../interfaces/ITimer';
 import {ITimerCounting} from '../interfaces/ITimerCounting';
 import {ITimerRadio} from '../interfaces/ITimerRadio';
 import {IWork} from '../interfaces/IWork';
@@ -16,4 +17,5 @@ export type TChangePomorodo = Pick<IAutomatic, 'isAutomatic'> &
 	ISetTimerRadio &
 	ISetTimer &
 	IDefaultTimer &
-	ITimerRadio;
+	ITimerRadio &
+	Pick<ITimer, 'mainTime'>;
