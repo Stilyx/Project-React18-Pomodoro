@@ -34,7 +34,7 @@
   > Caso você não saiba como funciona um pomodoro, temos um botão que explicará resumidamente como funciona. Caso não tenha ficado muito claro, terá também um link que lhe redirecionará  para a Wiki.
   
   - Modo Auto;
-  > Ativando o modo automático, seu pomodoro irá trocar para o descanso e caso você tenha completado 4 **Ciclos** irá para o descanso longo.
+  > Ativando o modo automático, seu pomodoro irá trocar para o descanso automáticamente após o pomodoro terminar, e caso você tenha completado 4 **Ciclos** irá para o descanso longo.
   
   - Alteração de Tempo;
   > Você pode definir o tempo que você quiser nos seus **Pomodoros**, **Descansos** e **Longo Descansos**.
