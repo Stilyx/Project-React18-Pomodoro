@@ -44,7 +44,7 @@
 <h2> Tecnologias Utilizadas </h2>
  
  - <a href='https://www.typescriptlang.org/' target='_blank'>Typescript</a>
- - <a href='https://www.typescriptlang.org/pt/docs/handbook/react.html' target='_blank'>React.Tsx</a>
+ - <a href='https://www.typescriptlang.org/pt/docs/handbook/react.html' target='_blank'>React.tsx</a>
  - <a href='https://react-icons.github.io/react-icons/' target='_blank'>React-Icons</a>
  - <a href='https://www.npmjs.com/package/react-circular-progressbar' target='_blank'> React-Circular-Progressbar </a> 
 </div>
