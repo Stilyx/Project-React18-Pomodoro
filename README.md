@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+<h2 align='center'>Projeto Pomodoro App</h2>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+![Pomodoro-App](https://github.com/Stilyx/Project-React18-Calculator-App/assets/109632184/63ff37f5-7050-4802-9a49-3298a37bbb9c)
 
-In the project directory, you can run:
+![Pomodoro-App-Settings](https://github.com/Stilyx/Project-React18-Calculator-App/assets/109632184/db6a62bc-e804-4ea8-8d39-ad2171a26ce5)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<div align='center'>
+  
+<img src='https://github.com/Stilyx/Project-React18-Calculator-App/assets/109632184/fc828845-80dc-475f-b5aa-eaa8fb9dba3d' />
+  
+<img src='https://github.com/Stilyx/Project-React18-Calculator-App/assets/109632184/9f966e98-3ede-407c-9347-d70d88a917e1' />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+</div>
 
-### `npm test`
+<div>
+  <h2> Figma Utilizado </h2>  
+    
+  - <p><a href="https://www.frontendmentor.io/challenges/pomodoro-app-KBFnycJ6G" target='_blank' >Pomodoro App</a></p>
+</div>  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<div>
+<h2> Sobre </h2>  
+ 
+  <h3 > Anteriormente eu fiz o mesmo pomodoro, porém, usando Javascript puro. Agora eu resolvi fazer novamente usando React com Typescript, com novas funcionalidades. </h3> 
+  
+  <h3> O Projeto possui as seguintes funcionalidades: </h3>
+  
+  - Informações no localStorage;
+  > Caso você mude as cores ou fontes do pomodoro, essas informações ficarão guardadas no localStorage, caso você saia do site e entre novamente, ficará com as mesmas fontes e cores que foram deixadas antes de você sair.
+  
+  - Botão Explicativo;
+  > Caso você não saiba como funciona um pomodoro, temos um botão que explicará resumidamente como funciona. Caso não tenha ficado muito claro, terá também um link que lhe redirecionará  para a Wiki.
+  
+  - Modo Auto;
+  > Ativando o modo automático, seu pomodoro irá trocar para o descanso e caso você tenha completado 4 **Ciclos** irá para o descanso longo.
+  
+  - Alteração de Tempo;
+  > Você pode definir o tempo que você quiser nos seus **Pomodoros**, **Descansos** e **Longo Descansos**.
+</div>
 
-### `npm run build`
+<div>
+<h2> Tecnologias Utilizadas </h2>
+ 
+ - <a href='https://www.typescriptlang.org/' target='_blank'>Typescript</a>
+ - <a href='https://www.typescriptlang.org/pt/docs/handbook/react.html' target='_blank'>React.Tsx</a>
+ - <a href='https://react-icons.github.io/react-icons/' target='_blank'>React-Icons</a>
+ - <a href='https://www.npmjs.com/package/react-circular-progressbar' target='_blank'> React-Circular-Progressbar </a> 
+</div>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<h2> Configuração para uso do projeto </h2>
 
-### `npm run eject`
+```
+# Para clonar
+$ git clone https://github.com/Stilyx/Project-React18-Calculator-App.git
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Para instalar todas as dependencias do projeto
+$ yarn install
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Caso precise fazer um migrations do seu banco de dados
+$ yarn migrate
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Para iniciar o servidor local em seu equipamento
+$ yarn dev
+```
