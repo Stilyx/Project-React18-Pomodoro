@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
+
+import {FaQuestion} from 'react-icons/fa';
 
 // Styles
 import './AboutPomodoro.css';
 
-// Interfaces
-import {IAbout} from '../../interfaces/IAbout';
+function AboutPomodoro(): JSX.Element {
+	const [isHidden, setIsHidden] = useState<boolean>(false);
 
-function AboutPomodoro({isHidden, setIsHidden, faQuestion}: IAbout): JSX.Element {
 	return (
 		<div>
-			<button className='about-pomodoro' onClick={e => setIsHidden(e)}>
-				{faQuestion}
+			<button className='about-pomodoro' onClick={e => setIsHidden(!isHidden)}>
+				<FaQuestion />
 			</button>
 			<div className={isHidden ? 'text-container show-text-container' : 'text-container'}>
 				<p className='about-text'>

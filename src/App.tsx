@@ -7,9 +7,6 @@ import './App.css';
 // Hooks
 import UseInterval from './hooks/SetInterval';
 
-// icons
-import {FaQuestion} from 'react-icons/fa';
-
 // Components
 import ChangePomodoro from './components/changePomodoro/ChangePomodoro';
 import SwitchAutoPomodoro from './components/switchAutoPomodoro/SwitchAutoPomodoro';
@@ -18,7 +15,7 @@ import AboutPomodoro from './components/aboutPomodoro/AboutPomodoro';
 import PomodoroModal from './components/settings/pomodoroSettings/PomodoroModal';
 import Modal from './components/modal/Modal';
 
-const logo = require('./assets/gear.png');
+const gear = require('./assets/gear.png');
 const playSong = require('./sounds/bell-start.mp3');
 const audioStartWorking = new Audio(playSong);
 const finishSong = require('./sounds/bell-finish.mp3');
@@ -32,13 +29,12 @@ function App() {
 	const [defaultRestTime, setDefaultRestTime] = useState<number>(300);
 	const [defaultLongRestTime, setDefaultLongRestTime] = useState<number>(900);
 	const [mainTime, setMainTime] = useState<number>(defaultPomodoro);
-	const [cyclesToLongRest, setCyclesToLongRest] = useState<boolean[]>(new Array(4).fill(true));
 	const [maxValue, setMaxValue] = useState<number>(0);
 	const [pomodoroRadio, setPomodoroRadio] = useState<boolean>(true);
 	const [shortRadio, setShortRadio] = useState<boolean>(false);
 	const [longRadio, setLongRadio] = useState<boolean>(false);
 	const [isAutomatic, setIsAutomatic] = useState<boolean>(false);
-	const [isHidden, setIsHidden] = useState<boolean>(false);
+	const [cyclesToLongRest, setCyclesToLongRest] = useState<boolean[]>(new Array(4).fill(true));
 	const [completedCycles, setCompletedCycles] = useState<number>(0);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -140,11 +136,7 @@ function App() {
 	return (
 		<div className='container'>
 			<h1 className='title'>Pomodoro</h1>
-			<AboutPomodoro
-				isHidden={isHidden}
-				setIsHidden={e => setIsHidden(!isHidden)}
-				faQuestion={<FaQuestion />}
-			/>
+			<AboutPomodoro />
 			<SwitchAutoPomodoro
 				isAutomatic={isAutomatic}
 				setIsAutomatic={e => setIsAutomatic(e)}
@@ -206,7 +198,7 @@ function App() {
 			</Modal>
 
 			<button onClick={() => setIsModalOpen(true)} className='gear-button'>
-				<img src={logo} alt='gear-options' />
+				<img src={gear} alt='gear-options' />
 			</button>
 		</div>
 	);
