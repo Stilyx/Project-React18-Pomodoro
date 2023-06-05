@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
+
+// Icons
 
 import {FaQuestion} from 'react-icons/fa';
 

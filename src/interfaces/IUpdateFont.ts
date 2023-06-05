@@ -1,4 +1,4 @@
 export interface IUpdateFont {
 	font: string;
-	setFontToUpdate: (e: React.SetStateAction<string | null>) => void;
+	setFont: (e: React.SetStateAction<string>) => void;
 }

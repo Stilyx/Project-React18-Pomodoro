@@ -5,8 +5,9 @@ import './Modal.css';
 
 // Interfaces
 import {IModal} from '../../interfaces/IModal';
+import {IOpenModal} from '../../interfaces/IOpenModal';
 
-function Modal({children, isModalOpen, setIsModalOpen}: IModal) {
+function Modal({children, isModalOpen, setIsModalOpen}: IModal & IOpenModal) {
 	const handleCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.target instanceof Element) {
 			if (e.target.classList.value === 'modal-overlay') setIsModalOpen(false);
@@ -14,7 +15,7 @@ function Modal({children, isModalOpen, setIsModalOpen}: IModal) {
 	};
 
 	return (
-		<div className={isModalOpen} onClick={e => handleCloseModal(e)}>
+		<div className={isModalOpen ? 'modal-overlay' : 'hidden'} onClick={e => handleCloseModal(e)}>
 			{children}
 		</div>
 	);

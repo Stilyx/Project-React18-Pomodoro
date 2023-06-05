@@ -1,20 +1,21 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useContext} from 'react';
 
 // Styles
 import './UpdateTimer.css';
 
+// Contexts
+import {TimerContext} from '../../../context/TimerContext';
+
 // Interfaces
-import {IDefaultTimer} from '../../../interfaces/IDefaultTimer';
 import {IUpdateTimer} from '../../../interfaces/IUpdateTimer';
 
 function UpdateTimer({
-	setDefaultPomodoroToUpdate,
+	setPomodoroToUpdate,
 	setShortPomodoroToUpdate,
-	setLongPomodoroToUpdate,
-	defaultPomodoro,
-	defaultRestTime,
-	defaultLongRestTime
-}: IUpdateTimer & IDefaultTimer) {
+	setLongPomodoroToUpdate
+}: IUpdateTimer) {
+	const {defaultPomodoro, defaultLongRestTime, defaultRestTime} = useContext(TimerContext);
+
 	const handleChangePomodoroValue = (e: ChangeEvent<HTMLInputElement>) => {
 		const targetValue = Number(e.target.value);
 		if (targetValue < 5 || targetValue >= 80) {
@@ -22,7 +23,7 @@ function UpdateTimer({
 			return;
 		} else {
 			e.target.classList.remove('error');
-			setDefaultPomodoroToUpdate(targetValue * 60);
+			setPomodoroToUpdate(targetValue * 60);
 		}
 	};
 

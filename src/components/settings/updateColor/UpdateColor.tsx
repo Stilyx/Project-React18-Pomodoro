@@ -9,12 +9,11 @@ import CircleButton from '../../circleButton/CircleButton';
 // Interfaces
 import {IUpdateColor} from '../../../interfaces/IUpdateColor';
 
-function UpdateColor({setColorToUpdate, color}: IUpdateColor) {
+function UpdateColor({setColor, color}: IUpdateColor) {
 	const handleChangeColor = (e: FormEvent<HTMLFormElement>) => {
-		if (e.target instanceof Element) {
-			setColorToUpdate(e.target.id);
-		}
+		if (e.target instanceof Element) setColor(e.target.id);
 	};
+
 	return (
 		<section className='settins-color'>
 			<h3>COLOR</h3>

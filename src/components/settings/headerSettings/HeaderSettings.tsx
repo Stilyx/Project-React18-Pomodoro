@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Icons
 import {GrFormClose} from 'react-icons/gr';
 
@@ -7,9 +5,9 @@ import {GrFormClose} from 'react-icons/gr';
 import './HeaderSettings.css';
 
 // Interfaces
-import {IHeaderSettings} from '../../../interfaces/IHeaderSettings';
+import {IOpenModal} from '../../../interfaces/IOpenModal';
 
-function HeaderSettings({setIsModalOpen}: IHeaderSettings) {
+function HeaderSettings({setIsModalOpen}: IOpenModal): JSX.Element {
 	return (
 		<section className='header-modal'>
 			<h2 className='modal-title'>Settings</h2>

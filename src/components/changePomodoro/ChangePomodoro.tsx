@@ -1,4 +1,4 @@
-import React, {FormEvent} from 'react';
+import React, {FormEvent, useContext} from 'react';
 
 // Styles
 import './ChangePomodoro.css';
@@ -6,35 +6,44 @@ import './ChangePomodoro.css';
 // Types
 import {TChangePomorodo} from '../../types/TChangePomodoro';
 
+// Context
+import {TimerContext} from '../../context/TimerContext';
+import {TimerRadioContext} from '../../context/TimerRadioContext';
+import {WorkingContext} from '../../context/WorkingContext';
+
 function ChangePomodoro(obj: TChangePomorodo): JSX.Element {
+	const timerContext = useContext(TimerContext);
+	const radioContext = useContext(TimerRadioContext);
+	const workContext = useContext(WorkingContext);
+
 	const changeRadios = (event: FormEvent<HTMLInputElement>) => {
 		switch (event.currentTarget.id) {
 			case 'pomodoro':
-				obj.setPomodoroRadio(true);
-				obj.setShortRadio(false);
-				obj.setLongRadio(false);
-				obj.setMainTime(obj.defaultPomodoro);
-				obj.setMaxValue(obj.defaultPomodoro);
-				obj.setTimeCounting(false);
-				obj.setWorking(true);
+				radioContext.setPomodoroRadio(true);
+				radioContext.setShortRadio(false);
+				radioContext.setLongRadio(false);
+				timerContext.setMainTime(timerContext.defaultPomodoro);
+				timerContext.setMaxValue(timerContext.defaultPomodoro);
+				timerContext.setTimeCounting(false);
+				workContext.setWorking(true);
 				break;
 			case 'shortBreak':
-				obj.setPomodoroRadio(false);
-				obj.setShortRadio(true);
-				obj.setLongRadio(false);
-				obj.setMainTime(obj.defaultRestTime);
-				obj.setMaxValue(obj.defaultRestTime);
-				obj.setTimeCounting(false);
-				obj.setWorking(false);
+				radioContext.setPomodoroRadio(false);
+				radioContext.setShortRadio(true);
+				radioContext.setLongRadio(false);
+				timerContext.setMainTime(timerContext.defaultRestTime);
+				timerContext.setMaxValue(timerContext.defaultRestTime);
+				timerContext.setTimeCounting(false);
+				workContext.setWorking(false);
 				obj.restTime(false);
 				break;
 			case 'longBreak':
-				obj.setPomodoroRadio(false);
-				obj.setShortRadio(false);
-				obj.setLongRadio(true);
-				obj.setMainTime(obj.defaultLongRestTime);
-				obj.setMaxValue(obj.defaultLongRestTime);
-				obj.setTimeCounting(false);
+				radioContext.setPomodoroRadio(false);
+				radioContext.setShortRadio(false);
+				radioContext.setLongRadio(true);
+				timerContext.setMainTime(timerContext.defaultLongRestTime);
+				timerContext.setMaxValue(timerContext.defaultLongRestTime);
+				timerContext.setTimeCounting(false);
 				obj.restTime(true);
 				break;
 		}
@@ -46,7 +55,7 @@ function ChangePomodoro(obj: TChangePomorodo): JSX.Element {
 				type='radio'
 				name='pomodorosTypes'
 				id='pomodoro'
-				checked={obj.pomodoroRadio}
+				checked={radioContext.pomodoroRadio}
 				onChange={e => changeRadios(e)}
 				disabled={obj.isAutomatic}
 			/>
@@ -55,7 +64,7 @@ function ChangePomodoro(obj: TChangePomorodo): JSX.Element {
 				type='radio'
 				name='pomodorosTypes'
 				id='shortBreak'
-				checked={obj.shortRadio}
+				checked={radioContext.shortRadio}
 				onChange={e => changeRadios(e)}
 				disabled={obj.isAutomatic}
 			/>
@@ -64,7 +73,7 @@ function ChangePomodoro(obj: TChangePomorodo): JSX.Element {
 				type='radio'
 				name='pomodorosTypes'
 				id='longBreak'
-				checked={obj.longRadio}
+				checked={radioContext.longRadio}
 				onChange={e => changeRadios(e)}
 				disabled={obj.isAutomatic}
 			/>

@@ -1,4 +1,6 @@
 export interface IWork {
-	setWorking: (e: React.SetStateAction<boolean>) => void;
 	working: boolean;
+	rest: boolean;
+	setRest: (e: React.SetStateAction<boolean>) => void;
+	setWorking: (e: React.SetStateAction<boolean>) => void;
 }

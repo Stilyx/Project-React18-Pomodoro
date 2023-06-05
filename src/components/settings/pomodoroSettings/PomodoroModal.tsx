@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import {useEffect, useState, useCallback, useContext} from 'react';
 
 // Styles
 import './PomodoroModal.css';
@@ -10,17 +10,22 @@ import UpdateFont from '../updateFont/UpdateFont';
 import UpdateColor from '../updateColor/UpdateColor';
 
 // Types
-import {TPomodoroModal} from '../../../types/TPomodoroModal';
+import {TimerContext} from '../../../context/TimerContext';
+import {TimerRadioContext} from '../../../context/TimerRadioContext';
+
+// Interfaces
+import {IOpenModal} from '../../../interfaces/IOpenModal';
 
 const fontData = localStorage.getItem('font')?.replace(' ', '-');
 const colorData = localStorage.getItem('color');
 
-function PomodoroModal(obj: TPomodoroModal) {
+function PomodoroModal({setIsModalOpen, isModalOpen}: IOpenModal) {
+	const timerContext = useContext(TimerContext);
+	const {longRadio, pomodoroRadio, shortRadio} = useContext(TimerRadioContext);
+
 	const [font, setFont] = useState<string>(fontData || 'Kumbh-Sans');
 	const [color, setColor] = useState<string>(colorData || 'red');
-	const [fontToUpdate, setFontToUpdate] = useState<string | null>(null);
-	const [colorToUpdate, setColorToUpdate] = useState<string | null>(null);
-	const [defaultPomodoroToUpdate, setDefaultPomodoroToUpdate] = useState<number | null>(null);
+	const [PomodoroToUpdate, setPomodoroToUpdate] = useState<number | null>(null);
 	const [shortPomodoroToUpdate, setShortPomodoroToUpdate] = useState<number | null>(null);
 	const [longPomodoroToUpdate, setLongPomodoroToUpdate] = useState<number | null>(null);
 
@@ -30,21 +35,32 @@ function PomodoroModal(obj: TPomodoroModal) {
 		document.body.setAttribute('class', `theme-${color}`);
 		document.body.style.fontFamily = font;
 
-		if (obj.pomodoroRadio && defaultPomodoroToUpdate) {
-			obj.setMainTime(defaultPomodoroToUpdate);
-			obj.setMaxValue(defaultPomodoroToUpdate);
+		if (pomodoroRadio && PomodoroToUpdate) {
+			timerContext.setMainTime(PomodoroToUpdate);
+			timerContext.setMaxValue(PomodoroToUpdate);
 		}
-		if (obj.shortRadio && shortPomodoroToUpdate) {
-			obj.setMainTime(shortPomodoroToUpdate);
-			obj.setMaxValue(shortPomodoroToUpdate);
+		if (shortRadio && shortPomodoroToUpdate) {
+			timerContext.setMainTime(shortPomodoroToUpdate);
+			timerContext.setMaxValue(shortPomodoroToUpdate);
 		}
-		if (obj.longRadio && longPomodoroToUpdate) {
-			obj.setMainTime(longPomodoroToUpdate);
-			obj.setMaxValue(longPomodoroToUpdate);
+		if (longRadio && longPomodoroToUpdate) {
+			timerContext.setMainTime(longPomodoroToUpdate);
+			timerContext.setMaxValue(longPomodoroToUpdate);
 		}
 
-		obj.setIsModalOpen(false);
-	}, [color, font, defaultPomodoroToUpdate, longPomodoroToUpdate, shortPomodoroToUpdate, obj]);
+		setIsModalOpen(false);
+	}, [
+		color,
+		font,
+		PomodoroToUpdate,
+		longPomodoroToUpdate,
+		shortPomodoroToUpdate,
+		timerContext,
+		longRadio,
+		shortRadio,
+		pomodoroRadio,
+		setIsModalOpen
+	]);
 
 	useEffect(() => {
 		const fontData = localStorage.getItem('font');
@@ -59,36 +75,28 @@ function PomodoroModal(obj: TPomodoroModal) {
 			setColor(colorData);
 		}
 
-		if (fontToUpdate) setFont(fontToUpdate);
-		if (colorToUpdate) setColor(colorToUpdate);
-
-		if (defaultPomodoroToUpdate) obj.setDefaultPomodoro(defaultPomodoroToUpdate);
-		if (shortPomodoroToUpdate) obj.setDefaultRestTime(shortPomodoroToUpdate);
-		if (longPomodoroToUpdate) obj.setDefaultLongRestTime(longPomodoroToUpdate);
+		if (PomodoroToUpdate) timerContext.setDefaultPomodoro(PomodoroToUpdate);
+		if (shortPomodoroToUpdate) timerContext.setDefaultRestTime(shortPomodoroToUpdate);
+		if (longPomodoroToUpdate) timerContext.setDefaultLongRestTime(longPomodoroToUpdate);
 	}, [
 		setColor,
 		setFont,
-		fontToUpdate,
-		colorToUpdate,
-		defaultPomodoroToUpdate,
+		PomodoroToUpdate,
 		longPomodoroToUpdate,
 		shortPomodoroToUpdate,
-		obj
+		timerContext
 	]);
 
 	return (
 		<div className='pomodoro-modal'>
-			<HeaderSettings setIsModalOpen={e => obj.setIsModalOpen(e)} />
+			<HeaderSettings setIsModalOpen={e => setIsModalOpen(e)} isModalOpen={isModalOpen} />
 			<UpdateTimer
-				setDefaultPomodoroToUpdate={e => setDefaultPomodoroToUpdate(e)}
+				setPomodoroToUpdate={e => setPomodoroToUpdate(e)}
 				setShortPomodoroToUpdate={e => setShortPomodoroToUpdate(e)}
 				setLongPomodoroToUpdate={e => setLongPomodoroToUpdate(e)}
-				defaultPomodoro={obj.defaultPomodoro}
-				defaultRestTime={obj.defaultRestTime}
-				defaultLongRestTime={obj.defaultLongRestTime}
 			/>
-			<UpdateFont font={font} setFontToUpdate={e => setFontToUpdate(e)} />
-			<UpdateColor setColorToUpdate={e => setColorToUpdate(e)} color={color} />
+			<UpdateFont font={font} setFont={e => setFont(e)} />
+			<UpdateColor color={color} setColor={e => setColor(e)} />
 
 			<button className='apply-settings' onClick={() => applyChanges()}>
 				Apply

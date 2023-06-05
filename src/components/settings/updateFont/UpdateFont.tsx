@@ -9,11 +9,9 @@ import CircleButton from '../../circleButton/CircleButton';
 // Interfaces
 import {IUpdateFont} from '../../../interfaces/IUpdateFont';
 
-function UpdateFont({font, setFontToUpdate}: IUpdateFont) {
+function UpdateFont({font, setFont}: IUpdateFont) {
 	const handleChangeFont = (e: FormEvent<HTMLFormElement>) => {
-		if (e.target instanceof Element) {
-			setFontToUpdate(e.target.id.replace('-', ' '));
-		}
+		if (e.target instanceof Element) setFont(e.target.id.replace('-', ' '));
 	};
 	return (
 		<section className='settins-font'>

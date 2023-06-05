@@ -1,47 +1,55 @@
-import React, {useEffect, useCallback} from 'react';
+import {useEffect, useCallback, useContext} from 'react';
 
 //Styles
 import './SwitchAutoPomodoro.css';
+
+// Context
+import {TimerContext} from '../../context/TimerContext';
+import {TimerRadioContext} from '../../context/TimerRadioContext';
+import {WorkingContext} from '../../context/WorkingContext';
 
 // Types
 import {TSwitchAutoPomodoro} from '../../types/TSwitchAutoPomodoro';
 
 function SwitchAutoPomodoro(obj: TSwitchAutoPomodoro): JSX.Element {
+	const timerContext = useContext(TimerContext);
+	const radioContext = useContext(TimerRadioContext);
+	const workContext = useContext(WorkingContext);
+
 	const changeAutomatic = () => {
-		obj.setPomodoroRadio(true);
-		obj.setShortRadio(false);
-		obj.setLongRadio(false);
-		obj.setRest(false);
-		obj.setMainTime(obj.defaultPomodoro);
-		obj.setMaxValue(obj.defaultPomodoro);
+		radioContext.setPomodoroRadio(true);
+		radioContext.setShortRadio(false);
+		radioContext.setLongRadio(false);
+		workContext.setRest(false);
+		timerContext.setMainTime(timerContext.defaultPomodoro);
+		timerContext.setMaxValue(timerContext.defaultPomodoro);
+		timerContext.setTimeCounting(false);
 		obj.setIsAutomatic(!obj.isAutomatic);
-		obj.setTimeCounting(false);
 		obj.setCompletedCycles(0);
 	};
 
-	const automaticRadiosChange = useCallback((): void => {
-		if (obj.pomodoroRadio) {
-			obj.setMainTime(obj.defaultPomodoro);
-			obj.setMaxValue(obj.defaultPomodoro);
+	const restartTimer = useCallback((): void => {
+		if (radioContext.pomodoroRadio) {
+			timerContext.setMainTime(timerContext.defaultPomodoro);
+			timerContext.setMaxValue(timerContext.defaultPomodoro);
 		}
-		if (obj.shortRadio) {
-			obj.setMainTime(obj.defaultRestTime);
-			obj.setMaxValue(obj.defaultRestTime);
+		if (radioContext.shortRadio) {
+			timerContext.setMainTime(timerContext.defaultRestTime);
+			timerContext.setMaxValue(timerContext.defaultRestTime);
 		}
-		if (obj.longRadio) {
-			obj.setMainTime(obj.defaultLongRestTime);
-			obj.setMaxValue(obj.defaultLongRestTime);
+		if (radioContext.longRadio) {
+			timerContext.setMainTime(timerContext.defaultLongRestTime);
+			timerContext.setMaxValue(timerContext.defaultLongRestTime);
 		}
-	}, [obj]);
+	}, [radioContext, timerContext]);
 
 	useEffect(() => {
-		if (obj.mainTime > 0) return;
+		if (timerContext.mainTime >= 0) return;
 		if (!obj.isAutomatic) {
-			obj.setTimeCounting(false);
-			automaticRadiosChange();
-			return;
+			timerContext.setTimeCounting(false);
+			restartTimer();
 		}
-	});
+	}, [timerContext, restartTimer, obj]);
 
 	return (
 		<div className='switch-container'>

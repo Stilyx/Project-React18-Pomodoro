@@ -1,4 +1,4 @@
 export interface IUpdateColor {
-	setColorToUpdate: (e: React.SetStateAction<string | null>) => void;
+	setColor: (e: React.SetStateAction<string>) => void;
 	color: string;
 }

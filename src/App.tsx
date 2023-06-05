@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useContext} from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 
 // Styles
@@ -12,45 +12,42 @@ import AboutPomodoro from './components/aboutPomodoro/AboutPomodoro';
 import PomodoroModal from './components/settings/pomodoroSettings/PomodoroModal';
 import Modal from './components/modal/Modal';
 
+import {TimerContext} from './context/TimerContext';
+import {TimerRadioContext} from './context/TimerRadioContext';
+import {WorkingContext} from './context/WorkingContext';
+
 // Assets
 const gear = require('./assets/gear.png');
 
 function App() {
-	const [working, setWorking] = useState<boolean>(false);
-	const [rest, setRest] = useState<boolean>(false);
-	const [timeCounting, setTimeCounting] = useState<boolean>(false);
-	const [defaultPomodoro, setDefaultPomodoro] = useState<number>(1500);
-	const [defaultRestTime, setDefaultRestTime] = useState<number>(300);
-	const [defaultLongRestTime, setDefaultLongRestTime] = useState<number>(900);
-	const [mainTime, setMainTime] = useState<number>(defaultPomodoro);
-	const [maxValue, setMaxValue] = useState<number>(0);
-	const [pomodoroRadio, setPomodoroRadio] = useState<boolean>(true);
-	const [shortRadio, setShortRadio] = useState<boolean>(false);
-	const [longRadio, setLongRadio] = useState<boolean>(false);
+	const timerContext = useContext(TimerContext);
+	const radioContext = useContext(TimerRadioContext);
+	const workContext = useContext(WorkingContext);
+
 	const [isAutomatic, setIsAutomatic] = useState<boolean>(false);
 	const [completedCycles, setCompletedCycles] = useState<number>(0);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
 	const restTime = useCallback(
 		(long: boolean): void => {
-			setWorking(false);
-			setRest(true);
-			isAutomatic ? setTimeCounting(true) : setTimeCounting(false);
+			workContext.setWorking(false);
+			workContext.setRest(true);
+			isAutomatic ? timerContext.setTimeCounting(true) : timerContext.setTimeCounting(false);
 			if (long) {
-				setMainTime(defaultLongRestTime);
-				setMaxValue(defaultLongRestTime);
-				setPomodoroRadio(false);
-				setLongRadio(true);
-				setShortRadio(false);
+				timerContext.setMainTime(timerContext.defaultLongRestTime);
+				timerContext.setMaxValue(timerContext.defaultLongRestTime);
+				radioContext.setPomodoroRadio(false);
+				radioContext.setLongRadio(true);
+				radioContext.setShortRadio(false);
 			} else {
-				setMainTime(defaultRestTime);
-				setMaxValue(defaultRestTime);
-				setPomodoroRadio(false);
-				setLongRadio(false);
-				setShortRadio(true);
+				timerContext.setMainTime(timerContext.defaultRestTime);
+				timerContext.setMaxValue(timerContext.defaultRestTime);
+				radioContext.setPomodoroRadio(false);
+				radioContext.setLongRadio(false);
+				radioContext.setShortRadio(true);
 			}
 		},
-		[defaultLongRestTime, defaultRestTime, isAutomatic]
+		[timerContext, isAutomatic, radioContext, workContext]
 	);
 
 	return (
@@ -60,80 +57,19 @@ function App() {
 			<SwitchAutoPomodoro
 				isAutomatic={isAutomatic}
 				setIsAutomatic={e => setIsAutomatic(e)}
-				setShortRadio={e => setShortRadio(e)}
-				setLongRadio={e => setLongRadio(e)}
-				setMainTime={e => setMainTime(e)}
-				setMaxValue={e => setMaxValue(e)}
-				setTimeCounting={e => setTimeCounting(e)}
-				defaultPomodoro={defaultPomodoro}
-				setRest={setRest}
-				setPomodoroRadio={e => setPomodoroRadio(e)}
 				setCompletedCycles={setCompletedCycles}
-				defaultRestTime={defaultRestTime}
-				defaultLongRestTime={defaultLongRestTime}
-				pomodoroRadio={pomodoroRadio}
-				shortRadio={shortRadio}
-				longRadio={longRadio}
-				mainTime={mainTime}
 			/>
-			<ChangePomodoro
-				pomodoroRadio={pomodoroRadio}
-				shortRadio={shortRadio}
-				longRadio={longRadio}
-				setPomodoroRadio={e => setPomodoroRadio(e)}
-				setShortRadio={e => setShortRadio(e)}
-				setLongRadio={e => setLongRadio(e)}
-				setWorking={e => setWorking(e)}
-				restTime={e => restTime(e)}
-				setMainTime={e => setMainTime(e)}
-				setMaxValue={e => setMaxValue(e)}
-				setTimeCounting={e => setTimeCounting(e)}
-				defaultPomodoro={defaultPomodoro}
-				defaultRestTime={defaultRestTime}
-				defaultLongRestTime={defaultLongRestTime}
-				isAutomatic={isAutomatic}
-				mainTime={mainTime}
-			/>
+			<ChangePomodoro restTime={e => restTime(e)} isAutomatic={isAutomatic} />
 
 			<PomodoroTimer
 				isAutomatic={isAutomatic}
-				mainTime={mainTime}
-				maxValue={maxValue}
-				timeCounting={timeCounting}
 				completedCycles={completedCycles}
-				setMainTime={e => setMainTime(e)}
-				defaultPomodoro={defaultPomodoro}
-				rest={rest}
 				restTime={e => restTime(e)}
-				setTimeCounting={e => setTimeCounting(e)}
 				setCompletedCycles={e => setCompletedCycles(e)}
-				setMaxValue={e => setMaxValue(e)}
-				setLongRadio={e => setLongRadio(e)}
-				setPomodoroRadio={e => setPomodoroRadio(e)}
-				setShortRadio={e => setShortRadio(e)}
-				setRest={e => setRest(e)}
-				setWorking={e => setWorking(e)}
-				working={working}
 			/>
 
-			<Modal
-				isModalOpen={isModalOpen ? 'modal-overlay' : 'hidden'}
-				setIsModalOpen={e => setIsModalOpen(e)}
-			>
-				<PomodoroModal
-					defaultPomodoro={defaultPomodoro}
-					defaultRestTime={defaultRestTime}
-					defaultLongRestTime={defaultLongRestTime}
-					setIsModalOpen={e => setIsModalOpen(e)}
-					setDefaultLongRestTime={e => setDefaultLongRestTime(e)}
-					setDefaultPomodoro={e => setDefaultPomodoro(e)}
-					setDefaultRestTime={e => setDefaultRestTime(e)}
-					setMainTime={e => setMainTime(e)}
-					setMaxValue={e => setMaxValue(e)}
-					pomodoroRadio={pomodoroRadio}
-					shortRadio={shortRadio}
-					longRadio={longRadio}
-				/>
+			<Modal setIsModalOpen={e => setIsModalOpen(e)} isModalOpen={isModalOpen}>
+				<PomodoroModal setIsModalOpen={e => setIsModalOpen(e)} isModalOpen={isModalOpen} />
 			</Modal>
 
 			<button onClick={() => setIsModalOpen(true)} className='gear-button'>
