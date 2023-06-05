@@ -4,4 +4,6 @@ export interface ICircleButton {
 	labelText: string;
 	inputName: string;
 	isChecked?: boolean;
+	value?: string;
+	handleClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
 }

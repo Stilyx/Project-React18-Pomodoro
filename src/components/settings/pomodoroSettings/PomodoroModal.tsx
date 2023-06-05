@@ -16,14 +16,14 @@ import {TimerRadioContext} from '../../../context/TimerRadioContext';
 // Interfaces
 import {IOpenModal} from '../../../interfaces/IOpenModal';
 
-const fontData = localStorage.getItem('font')?.replace(' ', '-');
+const fontData = localStorage.getItem('font');
 const colorData = localStorage.getItem('color');
 
 function PomodoroModal({setIsModalOpen, isModalOpen}: IOpenModal) {
 	const timerContext = useContext(TimerContext);
 	const {longRadio, pomodoroRadio, shortRadio} = useContext(TimerRadioContext);
 
-	const [font, setFont] = useState<string>(fontData || 'Kumbh-Sans');
+	const [font, setFont] = useState<string>(fontData || 'Kumbh Sans');
 	const [color, setColor] = useState<string>(colorData || 'red');
 	const [PomodoroToUpdate, setPomodoroToUpdate] = useState<number | null>(null);
 	const [shortPomodoroToUpdate, setShortPomodoroToUpdate] = useState<number | null>(null);
@@ -63,29 +63,21 @@ function PomodoroModal({setIsModalOpen, isModalOpen}: IOpenModal) {
 	]);
 
 	useEffect(() => {
-		const fontData = localStorage.getItem('font');
-		const colorData = localStorage.getItem('color');
+		if (PomodoroToUpdate) timerContext.setDefaultPomodoro(PomodoroToUpdate);
+		if (shortPomodoroToUpdate) timerContext.setDefaultRestTime(shortPomodoroToUpdate);
+		if (longPomodoroToUpdate) timerContext.setDefaultLongRestTime(longPomodoroToUpdate);
+	}, [PomodoroToUpdate, longPomodoroToUpdate, shortPomodoroToUpdate, timerContext]);
 
+	useEffect(() => {
 		if (fontData) {
 			document.body.style.fontFamily = fontData;
-			setFont(fontData.replace(' ', '-'));
+			setFont(fontData);
 		}
 		if (colorData) {
 			document.body.setAttribute('class', `theme-${colorData}`);
 			setColor(colorData);
 		}
-
-		if (PomodoroToUpdate) timerContext.setDefaultPomodoro(PomodoroToUpdate);
-		if (shortPomodoroToUpdate) timerContext.setDefaultRestTime(shortPomodoroToUpdate);
-		if (longPomodoroToUpdate) timerContext.setDefaultLongRestTime(longPomodoroToUpdate);
-	}, [
-		setColor,
-		setFont,
-		PomodoroToUpdate,
-		longPomodoroToUpdate,
-		shortPomodoroToUpdate,
-		timerContext
-	]);
+	}, []);
 
 	return (
 		<div className='pomodoro-modal'>
