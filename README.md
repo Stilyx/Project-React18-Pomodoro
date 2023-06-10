@@ -1,16 +1,16 @@
 <h2 align='center'>Projeto Pomodoro App</h2>
 
+![Pomodoro-App](https://github.com/Stilyx/Project-React18-Pomodoro/assets/109632184/84b5483c-0848-4e9e-9038-0763f58cb18d)
+![Pomodoro-App-Settings](https://github.com/Stilyx/Project-React18-Pomodoro/assets/109632184/93cfe7d1-7c3f-4fca-9329-3285bb58ec00)
 
-![Pomodoro-App](https://github.com/Stilyx/Project-React18-Calculator-App/assets/109632184/63ff37f5-7050-4802-9a49-3298a37bbb9c)
-
-![Pomodoro-App-Settings](https://github.com/Stilyx/Project-React18-Calculator-App/assets/109632184/db6a62bc-e804-4ea8-8d39-ad2171a26ce5)
 
 
 <div align='center'>
   
-<img src='https://github.com/Stilyx/Project-React18-Calculator-App/assets/109632184/fc828845-80dc-475f-b5aa-eaa8fb9dba3d' />
-  
-<img src='https://github.com/Stilyx/Project-React18-Calculator-App/assets/109632184/9f966e98-3ede-407c-9347-d70d88a917e1' />
+<img src='https://github.com/Stilyx/Project-React18-Pomodoro/assets/109632184/7f8baffa-0986-494e-93dd-4a814ffc5faa' />
+
+
+<img src='https://github.com/Stilyx/Project-React18-Pomodoro/assets/109632184/92643587-2228-480f-939c-1a3bdc9884ba' />
 
 </div>
 
